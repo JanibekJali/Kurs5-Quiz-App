@@ -1,14 +1,39 @@
+import 'dart:developer';
+
 import 'package:quiz_application/quiz_model.dart';
 
 class QuizBrain {
   int _index = 0;
   List<QuizModel> suroolorJanaJooptor = <QuizModel>[
-    QuizModel(suroolor: 'Kyrgyzstan egemenduu olko', jooptor: true),
-    QuizModel(suroolor: 'Batken Oshto jaigashkan', jooptor: false),
-    QuizModel(suroolor: 'Narynda Son Kol jaigashkan  ', jooptor: true),
+    QuizModel(suroolor: 'Bishkek Oshko karashtuu', jooptor: false), //0
+    QuizModel(suroolor: 'Batken Oshto jaigashkan', jooptor: false), // 1
+    QuizModel(suroolor: 'Narynda Son Kol jaigashkan  ', jooptor: true), // 2
   ];
 
+  //Surrolordu alip kel
   String getQuestion() {
-    return suroolorJanaJooptor[_index].suroolor;
+    if (_index < suroolorJanaJooptor.length) {
+      return suroolorJanaJooptor[_index].suroolor;
+    } else {
+      return 'Ayagina chykty';
+    }
+  }
+
+  //Jooptordu alip kel
+  bool getAnswers() {
+    return suroolorJanaJooptor[_index].jooptor;
+  }
+
+  //Suroonu otkoz
+  void getNext() {
+    log('_index: $_index');
+    _index++;
+  }
+
+  // noldon bashta
+  void reset() {
+    _index = 0;
   }
 }
+
+final QuizBrain quizBrain = QuizBrain();

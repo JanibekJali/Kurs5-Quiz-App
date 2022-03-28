@@ -22,6 +22,32 @@ class _QuizScreenState extends State<QuizScreen> {
     color: Colors.red,
     size: 45.0,
   );
+  String suroo;
+  // buttubu- teksherip jatabyz
+  bool isFinished;
+  //Koldonuuchu joop berdi
+  void userAnswered(bool userAnswer) {
+    bool correctAnswer = quizBrain.getAnswers();
+    if (userAnswer == correctAnswer) {
+      icons.add(correctIcon);
+    } else {
+      icons.add(incorrectIcon);
+    }
+
+    quizBrain.getNext();
+    suroo = quizBrain.getQuestion();
+    if (suroo == 'Ayagina chykty') {
+      isFinished = true;
+    }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    suroo = quizBrain.getQuestion();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,35 +70,45 @@ class _QuizScreenState extends State<QuizScreen> {
           children: [
             const SizedBox(height: 25.0),
             Text(
-              QuizBrain().getQuestion(),
+              suroo ?? 'Suroolor',
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 26.0,
               ),
             ),
-            Column(
-              children: [
-                CustomButton(
-                  onPress: () {
-                    icons.add(correctIcon);
-                    setState(() {});
-                  },
-                  textButton: 'Туура',
-                  color: const Color(0xff4CAF52),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                CustomButton(
-                  onPress: (() {
-                    icons.add(incorrectIcon);
-                    setState(() {});
-                  }),
-                  textButton: 'Туура эмес',
-                  color: const Color(0xffF54335),
-                ),
-              ],
-            ),
+            if (isFinished == true)
+              CustomButton(
+                textButton: 'Kairadan bashta',
+                onPress: () {
+                  quizBrain.reset();
+                  suroo = quizBrain.getQuestion();
+                  isFinished = false;
+                  icons = <Icon>[];
+                  setState(() {});
+                },
+              )
+            else
+              Column(
+                children: [
+                  CustomButton(
+                    onPress: () {
+                      userAnswered(true);
+                    },
+                    textButton: 'Туура',
+                    color: const Color(0xff4CAF52),
+                  ),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  CustomButton(
+                    onPress: (() {
+                      userAnswered(false);
+                    }),
+                    textButton: 'Туура эмес',
+                    color: const Color(0xffF54335),
+                  ),
+                ],
+              ),
             Row(
               children: icons,
             )

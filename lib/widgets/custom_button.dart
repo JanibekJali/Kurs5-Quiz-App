@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_application/app_constants/text_styles/app_text_style.dart';
 
 class CustomButton extends StatelessWidget {
   final String textButton;
@@ -15,10 +16,10 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: onPress,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 95.0, vertical: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 85.0, vertical: 30.0),
           child: Text(
             textButton,
-            style: const TextStyle(fontSize: 26.0),
+            style: AppTextStyle.button,
           ),
         ),
       ),

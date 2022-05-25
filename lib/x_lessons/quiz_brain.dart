@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:quiz_application/quiz_model.dart';
+import 'package:quiz_application/model/quiz_model.dart';
 
 class QuizBrain {
   int _index = 0;
